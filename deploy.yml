@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: myweb
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     env: production
+
+ template:
+  metadata:
+    name: myweb-image
+    labels:
+      env: production
+  spec:
+    containers:
+    - name: myweb-image
+      image: ssaumyaa7/httpd:v1
