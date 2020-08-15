@@ -1,20 +1,35 @@
-apiVersion: apps/v1
-kind: Deployment
-
+apiVersion: v1
+kind: Service
 metadata:
   name: myweb
+  labels:
+    app: myweb
 spec:
- replicas: 1
- selector:
-   matchLabels:
-     env: production
-
- template:
-  metadata:
-    name: myweb-image
-    labels:
-      env: production
-  spec:
-    containers:
-    - name: myweb-image
-      image: ssaumyaa7/httpd:v1
+  ports:
+    - port: 80
+      nodePort: 30007
+  selector:
+    app: myweb
+    tier: frontend
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: myweb
+spec:
+    replicas: 1
+    selector:
+          matchLabels:
+              app: myweb
+              tier: frontend
+template:
+        metadata:
+            name: myweb
+            labels:
+                app: myweb
+                tier: frontend
+spec:
+            containers:
+                - name: myweb
+                  image: ssaumyaa7/webserver:latest
