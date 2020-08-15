@@ -12,24 +12,28 @@ spec:
     app: myweb
     tier: frontend
   type: NodePort
+
+
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
     name: myweb
 spec:
-    replicas: 1
+    replicas: 3
     selector:
           matchLabels:
               app: myweb
               tier: frontend
-template:
+
+    template:
         metadata:
             name: myweb
             labels:
                 app: myweb
                 tier: frontend
-spec:
+
+        spec:
             containers:
                 - name: myweb
                   image: ssaumyaa7/webserver:latest
