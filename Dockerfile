@@ -1,6 +1,5 @@
-From centos
-WORKDIR /root/workspace
-COPY . /var/www/html
+FROM centos
 RUN yum install httpd -y
-CMD [ "/usr/sbin/httpd","-D","FOREGROUND" ]
-Expose 80
+COPY  myfile.html  /var/www/html
+EXPOSE 80
+CMD /usr/sbin/httpd -DFOREGROUND
